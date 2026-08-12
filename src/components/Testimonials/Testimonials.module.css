@@ -1,0 +1,131 @@
+.section {
+  padding: 5rem 1.5rem;
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.embla {
+  overflow: hidden;
+  cursor: grab;
+}
+.embla:active { cursor: grabbing; }
+
+.emblaContainer {
+  display: flex;
+  gap: 1.25rem;
+  user-select: none;
+}
+
+.slide {
+  flex: 0 0 min(340px, 88vw);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  transition: border-color var(--transition-base);
+}
+
+.card:hover { border-color: var(--gold-border); }
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.quoteGlyph {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: var(--gold);
+  opacity: 0.18;
+  line-height: 0.7;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.badgeReader {
+  font-family: var(--font-accent);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.badgeTier {
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+.quote {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.cardBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1rem;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: var(--gold);
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.authorName {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.authorLocation {
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .slide { flex: 0 0 360px; }
+  .section { padding: 6rem 2.5rem; }
+}

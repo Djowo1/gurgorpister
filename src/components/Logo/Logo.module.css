@@ -1,0 +1,44 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sm .name { font-size: var(--text-xs); }
+.lg .name { font-size: var(--text-base); letter-spacing: 0.15em; }
+
+/* Animation */
+.echo1, .echo2 {
+  animation: pulsate 3s ease-in-out infinite;
+}
+
+.echo2 {
+  animation-delay: 0.5s;
+}
+
+@keyframes pulsate {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}

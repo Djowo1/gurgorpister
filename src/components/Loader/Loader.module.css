@@ -1,0 +1,20 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--bg-deep);
+}
+
+.dots {
+  display: flex;
+  gap: 1rem;
+}
+
+.dot {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--gold);
+  border-radius: 50%;
+}

@@ -1,0 +1,113 @@
+/* === GURGORPISTER DESIGN SYSTEM === */
+
+:root[data-theme="dark"], :root {
+  --bg-deep:        #0A0608;
+  --bg-card:        #120D10;
+  --bg-elevated:    #1A1118;
+  --bg-overlay:     rgba(10, 6, 8, 0.85);
+
+  --gold:           #C9A84C;
+  --gold-light:     #E8C97A;
+  --gold-dim:       rgba(201, 168, 76, 0.12);
+  --gold-border:    rgba(201, 168, 76, 0.25);
+  --gold-glow:      0 0 28px rgba(201, 168, 76, 0.28);
+
+  --ivory:          #F0EAD6;
+  --ivory-dim:      rgba(240, 234, 214, 0.65);
+  --muted:          #7A6E6A;
+  --muted-light:    #9A8E8A;
+
+  --accent-purple:  #4A2D6B;
+  --accent-purple-soft: rgba(74, 45, 107, 0.25);
+
+  --text-primary:   #F0EAD6;
+  --text-secondary: #9A8E8A;
+  --text-gold:      #C9A84C;
+
+  --border:         rgba(201, 168, 76, 0.18);
+  --border-subtle:  rgba(255, 255, 255, 0.05);
+
+  --shadow-card:    0 8px 40px rgba(0, 0, 0, 0.7);
+  --shadow-gold:    0 0 32px rgba(201, 168, 76, 0.18);
+  --shadow-lift:    0 16px 48px rgba(0, 0, 0, 0.5);
+
+  --navbar-bg:      rgba(10, 6, 8, 0.94);
+  --navbar-blur:    blur(24px);
+  --hero-overlay-bg: rgba(0,0,0,0.3);
+}
+
+:root[data-theme="light"] {
+  --bg-deep:        #F5F0E8;
+  --bg-card:        #FFFFFF;
+  --bg-elevated:    #EDE7DC;
+  --bg-overlay:     rgba(245, 240, 232, 0.92);
+
+  --gold:           #9A6F28;
+  --gold-light:     #C9A84C;
+  --gold-dim:       rgba(154, 111, 40, 0.1);
+  --gold-border:    rgba(154, 111, 40, 0.28);
+  --gold-glow:      0 0 28px rgba(154, 111, 40, 0.18);
+
+  --ivory:          #1A1118;
+  --ivory-dim:      rgba(26, 17, 24, 0.65);
+  --muted:          #6B6068;
+  --muted-light:    #8A7E7A;
+
+  --accent-purple:  #6B3FA0;
+  --accent-purple-soft: rgba(107, 63, 160, 0.12);
+
+  --text-primary:   #1A1118;
+  --text-secondary: #6B6068;
+  --text-gold:      #9A6F28;
+
+  --border:         rgba(154, 111, 40, 0.22);
+  --border-subtle:  rgba(0, 0, 0, 0.06);
+
+  --shadow-card:    0 8px 40px rgba(0, 0, 0, 0.1);
+  --shadow-gold:    0 0 32px rgba(154, 111, 40, 0.12);
+  --shadow-lift:    0 16px 48px rgba(0, 0, 0, 0.12);
+
+  --navbar-bg:      rgba(245, 240, 232, 0.96);
+  --navbar-blur:    blur(24px);
+  --hero-overlay-bg: rgba(255, 255, 255, 0.3);
+}
+
+:root {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-accent:  'Cinzel', 'Times New Roman', serif;
+
+  --text-xs:   0.72rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+  --text-7xl:  4.5rem;
+
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   20px;
+  --radius-2xl:  28px;
+  --radius-full: 9999px;
+
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.3s ease;
+  --transition-slow:   0.6s ease;
+  --transition-slower: 1s ease;
+}

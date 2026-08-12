@@ -1,0 +1,76 @@
+/* BookingConfirmation.module.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  padding: 2rem;
+  text-align: center;
+}
+
+.content {
+  max-width: 500px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-family: var(--font-display);
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.message {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.txRef {
+  font-size: 0.9rem;
+  color: var(--color-text-subtle);
+  margin-bottom: 2rem;
+  word-break: break-all;
+}
+
+.homeLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.homeLink:hover {
+  color: var(--color-accent);
+}
+
+.iconSuccess, .iconFailure {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.iconSuccess {
+  color: #28a745; /* Green */
+}
+
+.iconFailure {
+  color: #dc3545; /* Red */
+}
+
+/* Spinner animation */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid var(--color-primary);
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
