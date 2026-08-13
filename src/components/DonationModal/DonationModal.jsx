@@ -2,41 +2,39 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
 import styles from "./DonationModal.module.css";
-import DonationSuccessModal from "./DonationSuccessModal";
+import DonationSuccessModal from "./DonationSuccessModal.jsx";
 
 const CURRENCIES = [
-    { code: 'USD', symbol: '$', label: 'USD — US Dollar', multiplier: 1 },
-    { code: 'NGN', symbol: '₦', label: 'NGN — Nigerian Naira', multiplier: 1600 },
-    { code: 'GBP', symbol: '£', label: 'GBP — British Pound', multiplier: 0.78 },
-    { code: 'EUR', symbol: '€', label: 'EUR — Euro', multiplier: 0.92 },
-    { code: 'CAD', symbol: 'C$', label: 'CAD — Canadian Dollar', multiplier: 1.36 },
-    { code: 'AUD', symbol: 'A$', label: 'AUD — Australian Dollar', multiplier: 1.50 },
-    { code: 'JPY', symbol: '¥', label: 'JPY — Japanese Yen', multiplier: 155 },
-    { code: 'ZAR', symbol: 'R', label: 'ZAR — South African Rand', multiplier: 18.5 },
-    { code: 'KES', symbol: 'KSh', label: 'KES — Kenyan Shilling', multiplier: 130 },
-    { code: 'GHS', symbol: 'GH₵', label: 'GHS — Ghanaian Cedi', multiplier: 14.5 },
-    { code: 'INR', symbol: '₹', label: 'INR — Indian Rupee', multiplier: 83.5 },
-    { code: 'BRL', symbol: 'R$', label: 'BRL — Brazilian Real', multiplier: 5.1 },
-    { code: 'MXN', symbol: '$', label: 'MXN — Mexican Peso', multiplier: 16.8 },
-    { code: 'SGD', symbol: 'S$', label: 'SGD — Singapore Dollar', multiplier: 1.35 },
-    { code: 'NZD', symbol: 'NZ$', label: 'NZD — New Zealand Dollar', multiplier: 1.66 },
+    { code: 'USD', symbol: '$', label: 'USD — US Dollar' },
+    { code: 'NGN', symbol: '₦', label: 'NGN — Nigerian Naira' },
+    { code: 'GBP', symbol: '£', label: 'GBP — British Pound' },
+    { code: 'EUR', symbol: '€', label: 'EUR — Euro' },
+    { code: 'CAD', symbol: 'C$', label: 'CAD — Canadian Dollar' },
+    { code: 'AUD', symbol: 'A$', label: 'AUD — Australian Dollar' },
+    { code: 'JPY', symbol: '¥', label: 'JPY — Japanese Yen' },
+    { code: 'ZAR', symbol: 'R', label: 'ZAR — South African Rand' },
+    { code: 'KES', symbol: 'KSh', label: 'KES — Kenyan Shilling' },
+    { code: 'GHS', symbol: 'GH₵', label: 'GHS — Ghanaian Cedi' },
+    { code: 'INR', symbol: '₹', label: 'INR — Indian Rupee' },
+    { code: 'BRL', symbol: 'R$', label: 'BRL — Brazilian Real' },
+    { code: 'MXN', symbol: '$', label: 'MXN — Mexican Peso' },
+    { code: 'SGD', symbol: 'S$', label: 'SGD — Singapore Dollar' },
+    { code: 'NZD', symbol: 'NZ$', label: 'NZD — New Zealand Dollar' },
 ];
 
 export default function DonationModal({ onClose }) {
   const [amount, setAmount] = useState(10);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [contactMethod, setContactMethod] = useState('email');
   const [currency, setCurrency] = useState(CURRENCIES[0]);
   const [errors, setErrors] = useState({});
   const [isProcessing, setIsProcessing] = useState(false);
   const [serverError, setServerError] = useState('');
   const [step, setStep] = useState('details'); // details | payment | success
 
-  const getAmount = () => {
-    const m = currency.multiplier || 1;
-    return parseFloat((amount * m).toFixed(2));
-  };
-  
   const validate = () => {
     const e = {};
     if (!name.trim()) e.name = 'Please enter your name';
@@ -59,19 +57,22 @@ export default function DonationModal({ onClose }) {
   const flutterwaveConfig = {
     public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY || 'FLWPUBK_TEST-YOUR_FLUTTERWAVE_PUBLIC_KEY',
     tx_ref: `EC-GIFT-${Date.now()}`,
-    amount: getAmount(),
+    amount: amount,
     currency: currency.code,
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: email,
       name: name,
+      phonenumber: phone,
     },
     customizations: {
       title: 'Echoes and Cards - Gift',
       description: 'A generous gift to support our work.',
     },
     meta: {
-        type: 'donation'
+        type: 'donation',
+        message: message,
+        contactMethod: contactMethod,
     }
   };
 
@@ -159,6 +160,24 @@ export default function DonationModal({ onClose }) {
                   {errors.email && <span className={styles.errorMsg}>{errors.email}</span>}
                 </div>
 
+                <div className={styles.field}>
+                  <label htmlFor="phone" className={styles.label}>Phone Number (Optional)</label>
+                  <input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="e.g., +1 234 567 890" />
+                </div>
+
+                <div className={styles.field}>
+                  <label htmlFor="message" className={styles.label}>Short Message (Optional)</label>
+                  <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} className={styles.textarea} rows="3" placeholder="Leave a kind word..."></textarea>
+                </div>
+
+                <div className={styles.field}>
+                  <label htmlFor="contactMethod" className={styles.label}>Preferred Contact Method</label>
+                  <select id="contactMethod" value={contactMethod} onChange={(e) => setContactMethod(e.target.value)} className={styles.select}>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                  </select>
+                </div>
+
                 {serverError && <div className={styles.serverErrorMsg}>{serverError}</div>}
 
                 <div className={styles.actions}>
@@ -176,7 +195,7 @@ export default function DonationModal({ onClose }) {
                 <span className={styles.modalLabel}>Complete Your Donation</span>
                 <h2 className={styles.modalTitle}>Secure Payment</h2>
                 <p className={styles.modalSub}>
-                  You are donating {currency.symbol}{getAmount().toLocaleString()} {currency.code}
+                  You are donating {currency.symbol}{amount.toLocaleString()} {currency.code}
                 </p>
               </div>
 
@@ -197,4 +216,3 @@ export default function DonationModal({ onClose }) {
     </AnimatePresence>
   );
 }
-

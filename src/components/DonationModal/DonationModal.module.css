@@ -144,6 +144,29 @@
 .field input::placeholder { color: var(--muted); }
 
 
+/* Styling for textarea and select */
+.field textarea,
+.field .select {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.7rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  transition: border-color var(--transition-fast);
+  outline: none;
+  width: 100%;
+}
+.field textarea:focus,
+.field .select:focus { border-color: var(--gold-border); }
+.field textarea::placeholder { color: var(--muted); }
+
+.field .select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .inputError { border-color: #e05c5c !important; }
 
 .errorMsg { font-size: var(--text-xs); color: #e05c5c; margin-top: 0.2rem; }
