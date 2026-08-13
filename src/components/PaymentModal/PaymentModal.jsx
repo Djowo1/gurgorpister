@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
+import { FlutterWaveButton } from 'flutterwave-react-v3';
 import Calendar from '../Calendar/Calendar';
 import { createPendingBooking, updateBookingStatus } from '../../services/bookingService';
 import styles from './PaymentModal.module.css';
@@ -24,7 +24,7 @@ const CURRENCIES = [
 ];
 
 export default function PaymentModal({ reader, tier, onClose }) {
-  const [step, setStep] = useState('schedule'); // 'schedule' | 'details' | 'payment' | 'success'
+  const [step, setStep] = useState('schedule'); // 'schedule' | 'details' | 'payment' | 'success' | 'failure'
   
   // Schedule state
   const [selectedDateTime, setSelectedDateTime] = useState(null);
@@ -45,16 +45,11 @@ export default function PaymentModal({ reader, tier, onClose }) {
 
   const getAmount = () => {
     const m = currency.multiplier || 1;
-    return parseFloat((tier.priceNumber * m).toFixed(2));
+    return parseFloat((Number(tier.price.replace('$', '')) * m).toFixed(2));
   };
 
   const handleDateTimeSelect = (dateTime) => {
     setSelectedDateTime(dateTime);
-  };
-
-  const handleProceedToDetails = () => {
-    if (!selectedDateTime) return;
-    setStep('details');
   };
 
   const validateDetails = () => {
@@ -67,10 +62,21 @@ export default function PaymentModal({ reader, tier, onClose }) {
     return e;
   };
 
+  const handleProceedToDetails = () => {
+    if (!selectedDateTime) {
+      alert('Please select a date and time for your reading.');
+      return;
+    }
+    setStep('details');
+  };
+
   const handleProceedToPayment = async () => {
     const e = validateDetails();
-    if (Object.keys(e).length) { setErrors(e); return; }
-    
+    if (Object.keys(e).length) {
+      setErrors(e);
+      return;
+    }
+    setErrors({});
     setIsSaving(true);
     try {
         // Save pending booking to Firebase
@@ -115,33 +121,46 @@ export default function PaymentModal({ reader, tier, onClose }) {
     },
     meta: {
       country: country,
+      readerName: reader.name,
       address: address,
+      message: message,
       bookingDate: `${selectedDateTime?.date.toLocaleDateString()} at ${selectedDateTime?.time}`,
       tier: tier.name
     }
   };
 
-  const handleFlutterwaveSuccessAction = (response) => {
+  const handleFlutterwaveCallback = (response) => {
+    if (response.status === 'successful') {
       // Payment complete! Update firebase
       updateBookingStatus(bookingId, 'completed', response.transaction_id || response.tx_ref).then(() => {
-          setStep('success');
-          closePaymentModal();
+        setStep('success');
+        setTimeout(() => onClose(), 5000); // Auto close after 5 seconds
       }).catch(err => {
           console.error("Failed to update status, but payment was successful.", err);
           setStep('success'); // Still show success to user
-          closePaymentModal();
+          setTimeout(() => onClose(), 5000); // Auto close after 5 seconds
       });
+    } else {
+      // Handle failure or cancellation
+      updateBookingStatus(bookingId, response.status || 'failed', response.transaction_id || response.tx_ref).catch(err => {
+          console.error("Failed to update booking status to failed/cancelled.", err);
+      });
+      setStep('failure');
+      setTimeout(() => onClose(), 5000); // Auto close after 5 seconds
+    }
   };
 
   const handleFlutterwaveCloseAction = () => {
       // User closed the modal without completing payment
       console.log('Payment modal closed');
+      // Optionally, you can set a step to show a message
+      // For now, we do nothing and let the user be on the payment step.
   };
 
   const componentProps = {
       ...flutterwaveConfig,
       text: `Pay with Flutterwave`,
-      callback: handleFlutterwaveSuccessAction,
+      callback: handleFlutterwaveCallback,
       onClose: handleFlutterwaveCloseAction,
   };
 
@@ -168,33 +187,22 @@ export default function PaymentModal({ reader, tier, onClose }) {
           </button>
 
           {step === 'schedule' && (
-              <div className={styles.inner}>
-                <div className={styles.modalHeader}>
-                    <span className={styles.modalLabel}>Step 1 of 3</span>
-                    <h2 className={styles.modalTitle}>Choose Date & Time</h2>
-                    <p className={styles.modalSub}>
-                    {tier.name} with <strong>{reader.name}</strong>
-                    </p>
-                </div>
-                
-                <div className={styles.scheduleWrapper}>
-                    <Calendar onDateTimeSelect={handleDateTimeSelect} />
-                </div>
-
-                <div className={styles.footerActions}>
-                    <button 
-                        className={styles.proceedBtn} 
-                        onClick={handleProceedToDetails}
-                        disabled={!selectedDateTime}
-                        style={{ opacity: !selectedDateTime ? 0.5 : 1, cursor: !selectedDateTime ? 'not-allowed' : 'pointer' }}
-                    >
-                        Continue to Details
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                </div>
+            <div className={styles.inner}>
+              <div className={styles.modalHeader}>
+                <span className={styles.modalLabel}>Step 1 of 3</span>
+                <h2 className={styles.modalTitle}>Schedule Your Reading</h2>
+                <p className={styles.modalSub}>
+                  For {tier.name} with <strong>{reader.name}</strong>
+                </p>
               </div>
+              <Calendar onDateTimeSelect={handleDateTimeSelect} />
+              <div className={styles.footerActionsDouble}>
+                <button className={styles.backBtn} onClick={onClose}>Cancel</button>
+                <button className={styles.proceedBtn} onClick={handleProceedToDetails}>
+                  Proceed to Details
+                </button>
+              </div>
+            </div>
           )}
 
           {step === 'details' && (
@@ -203,7 +211,7 @@ export default function PaymentModal({ reader, tier, onClose }) {
                 <span className={styles.modalLabel}>Step 2 of 3</span>
                 <h2 className={styles.modalTitle}>Your Details</h2>
                 <p className={styles.modalSub}>
-                  For {selectedDateTime?.date.toLocaleDateString()} at {selectedDateTime?.time}
+                  For {tier.name} with <strong>{reader.name}</strong>
                 </p>
               </div>
 
@@ -365,6 +373,22 @@ export default function PaymentModal({ reader, tier, onClose }) {
                 Check your inbox at <strong>{email}</strong> — we'll be in touch with further instructions.
               </p>
               <button className={styles.proceedBtn} onClick={onClose}>Done</button>
+            </motion.div>
+          )}
+
+          {step === 'failure' && (
+            <motion.div
+              className={`${styles.inner} ${styles.failure}`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <div className={styles.failureIcon}>✕</div>
+              <h2 className={styles.failureTitle}>Payment Failed</h2>
+              <p className={styles.failureText}>
+                Unfortunately, your payment could not be processed. Please try again or use a different payment method.
+              </p>
+              <p className={styles.failureText}>No charges were made. You can close this window now.</p>
+              <button className={styles.proceedBtn} onClick={() => setStep('payment')}>Try Again</button>
             </motion.div>
           )}
         </motion.div>

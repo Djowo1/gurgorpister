@@ -69,7 +69,7 @@
 
   --navbar-bg:      rgba(245, 240, 232, 0.96);
   --navbar-blur:    blur(24px);
-  --hero-overlay-bg: rgba(255, 255, 255, 0.3);
+  --hero-overlay-bg: rgba(245, 240, 232, 0.15);
 }
 
 :root {

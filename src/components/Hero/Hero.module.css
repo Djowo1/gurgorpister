@@ -74,9 +74,15 @@
 .videoOverlay {
   position: absolute;
   inset: 0;
-  background: var(--hero-overlay-bg);
   z-index: 0;
 }
+/* 
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay-bg);
+  z-index: 0;
+} */
 
 @keyframes pulseGlow {
   0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }

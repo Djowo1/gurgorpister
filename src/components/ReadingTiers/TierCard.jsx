@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+import { useFlutterwave } from 'flutterwave-react-v3';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import styles from './ReadingTiers.module.css';
 
@@ -79,7 +79,7 @@ export default function TierCard({ tier, reader, index, onBook }) {
 
       <button
         className={`${styles.bookBtn} ${tier.popular ? styles.bookBtnPopular : ''}`}
-        onClick={handlePayment}
+        onClick={onBook}
       >
         Book with {reader?.name?.split(' ')[0]??'Reader'}
       </button>

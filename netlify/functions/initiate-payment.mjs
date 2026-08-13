@@ -5,7 +5,7 @@ export const handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  const { amount, currency, email, name, tier, reader, message } = JSON.parse(event.body);
+  const { amount, currency, email, name, phone_number, tier, reader, message } = JSON.parse(event.body);
 
   const tx_ref = `EC-${Date.now()}`;
 
@@ -18,11 +18,15 @@ export const handler = async (event) => {
       customer: {
         email,
         name,
+        phone_number,
       },
       meta: {
         tier,
         reader,
         message,
+        email,
+        name,
+        phone_number,
       },
       customizations: {
         title: 'Echoes & Cards - Tarot Reading',
