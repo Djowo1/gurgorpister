@@ -7,6 +7,7 @@
   --bg-overlay:     rgba(10, 6, 8, 0.85);
 
   --gold:           #C9A84C;
+  --gold1:           #C9A84C;
   --gold-light:     #E8C97A;
   --gold-dim:       rgba(201, 168, 76, 0.12);
   --gold-border:    rgba(201, 168, 76, 0.25);
@@ -23,6 +24,10 @@
   --text-primary:   #F0EAD6;
   --text-secondary: #9A8E8A;
   --text-gold:      #C9A84C;
+
+  --text-primary1:   #F0EAD6;
+  --text-secondary1: #9A8E8A;
+  --text-gold1:      #C9A84C;
 
   --border:         rgba(201, 168, 76, 0.18);
   --border-subtle:  rgba(255, 255, 255, 0.05);
@@ -42,7 +47,8 @@
   --bg-elevated:    #EDE7DC;
   --bg-overlay:     rgba(245, 240, 232, 0.92);
 
-  --gold:           #9A6F28;
+  --gold:           #7C571C;
+   --gold1:           #C9A84C;
   --gold-light:     #C9A84C;
   --gold-dim:       rgba(154, 111, 40, 0.1);
   --gold-border:    rgba(154, 111, 40, 0.28);
@@ -59,6 +65,10 @@
   --text-primary:   #1A1118;
   --text-secondary: #6B6068;
   --text-gold:      #9A6F28;
+
+  --text-primary1:   #F0EAD6;
+  --text-secondary1: #9A8E8A;
+  --text-gold1:      #C9A84C;
 
   --border:         rgba(154, 111, 40, 0.22);
   --border-subtle:  rgba(0, 0, 0, 0.06);
