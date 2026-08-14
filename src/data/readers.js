@@ -5,7 +5,7 @@ export const readers = [
     tagline: 'She hears what the silence is trying to say.',
     specialty: 'Relationships, Love & Hidden Truths',
     bio: 'Seraphine has been reading cards for eleven years. She works slowly, precisely, and refuses to tell you what you want to hear. Her readings sit with you for days.',
-    image: '/images/1st image.png',
+    image: '/images/5th image.png',
     socials: { instagram: '#', tiktok: '#' },
   },
   {
@@ -14,7 +14,7 @@ export const readers = [
     tagline: 'The past explains everything. He reads it clearly.',
     specialty: 'Career & Purpose',
     bio: 'A former architect, Dorian brings structure to readings. He maps timelines, traces patterns, and finds the root of what is holding you where you are.',
-    image: '/images/2nd image.png',
+    image: '/images/6th image.png',
     socials: { instagram: '#', tiktok: '#' },
   },
   {
@@ -23,7 +23,7 @@ export const readers = [
     tagline: 'Between the cards and your breath lies the answer.',
     specialty: 'Spiritual Path & Soul Work',
     bio: 'Isolde reads with an almost unnerving stillness. She specialises in soul-level patterns — the agreements you made before you understood what you were agreeing to.',
-    image: '/images/3rd image.png',
+    image: '/images/7th image.png',
     socials: { instagram: '#', tiktok: '#' },
   },
   {
