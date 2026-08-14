@@ -5,7 +5,7 @@ export const readers = [
     tagline: 'She hears what the silence is trying to say.',
     specialty: 'Relationships, Love & Hidden Truths',
     bio: 'Seraphine has been reading cards for eleven years. She works slowly, precisely, and refuses to tell you what you want to hear. Her readings sit with you for days.',
-    image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=480&h=580&fit=crop&auto=format&q=80',
+    image: '/images/1st image.png',
     socials: { instagram: '#', tiktok: '#' },
   },
   {
@@ -14,7 +14,7 @@ export const readers = [
     tagline: 'The past explains everything. He reads it clearly.',
     specialty: 'Career & Purpose',
     bio: 'A former architect, Dorian brings structure to readings. He maps timelines, traces patterns, and finds the root of what is holding you where you are.',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=480&h=580&fit=crop&auto=format&q=80',
+    image: '/images/2nd image.png',
     socials: { instagram: '#', tiktok: '#' },
   },
   {
@@ -23,7 +23,7 @@ export const readers = [
     tagline: 'Between the cards and your breath lies the answer.',
     specialty: 'Spiritual Path & Soul Work',
     bio: 'Isolde reads with an almost unnerving stillness. She specialises in soul-level patterns — the agreements you made before you understood what you were agreeing to.',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=480&h=580&fit=crop&auto=format&q=80',
+    image: '/images/3rd image.png',
     socials: { instagram: '#', tiktok: '#' },
   },
   {
@@ -32,7 +32,7 @@ export const readers = [
     tagline: 'Precision. Depth. No sugar-coating.',
     specialty: 'Finances & Decisions',
     bio: 'Cassian does not deal in comfort. He deals in clarity. If you need to know what is actually true about your situation — finances, timing, next steps — this is your reader.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=480&h=580&fit=crop&auto=format&q=80',
+    image: '/images/4th image.png',
     socials: { instagram: '#', tiktok: '#' },
   },
 ];
