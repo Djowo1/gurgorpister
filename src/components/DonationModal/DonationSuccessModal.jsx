@@ -19,8 +19,8 @@ export default function DonationSuccessModal({ onClose }) {
         >
           <div className={styles.successState}>
             <div className={styles.successIcon}>✓</div>
-            <h2 className={styles.title}>Thank You!</h2>
-            <p className={styles.subtitle}>Your payment was successful.</p>
+            <h2 className={styles.title}>Payment Successful!</h2>
+            <p className={styles.subtitle}>Your money has been transferred securely.</p>
             <button className={styles.closeSuccessBtn} onClick={onClose}>Done</button>
           </div>
         </motion.div>

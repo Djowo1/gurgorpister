@@ -14,6 +14,7 @@ import Footer from './components/Footer/Footer';
 import PaymentModal from './components/PaymentModal/PaymentModal';
 import BookingConfirmation from './components/BookingConfirmation/BookingConfirmation';
 import DonationBanner from './components/DonationBanner/DonationBanner';
+import DonationPage from './components/DonationPage/DonationPage';
 import DonationSuccessModal from './components/DonationModal/DonationSuccessModal';
 
 const HomePage = () => {
@@ -80,6 +81,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+      <Route path="/pay" element={<DonationPage />} />
     </Routes>
   );
 }

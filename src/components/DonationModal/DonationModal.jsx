@@ -78,7 +78,7 @@ export default function DonationModal({ onClose }) {
 
   const handleFlutterwaveSuccessAction = (response) => {
       // Payment complete! 
-      // You can add logic here to save the donation to your database
+      // You can add logic here to save the transaction to your database
       setStep('success');
       closePaymentModal();
   };
@@ -118,8 +118,8 @@ export default function DonationModal({ onClose }) {
           {step === 'details' && (
             <>
               <div className={styles.header}>
-                <h2 className={styles.title}>Send a Gift</h2>
-                <p className={styles.subtitle}>Your support is greatly appreciated!</p>
+                <h2 className={styles.title}>Send Money Securely</h2>
+                <p className={styles.subtitle}>Fast and secure payment processing via Flutterwave</p>
               </div>
 
               <div className={styles.form}>
@@ -192,16 +192,16 @@ export default function DonationModal({ onClose }) {
           {step === 'payment' && (
             <div className={styles.inner}>
               <div className={styles.modalHeader}>
-                <span className={styles.modalLabel}>Complete Your Donation</span>
+                <span className={styles.modalLabel}>Complete Your Payment</span>
                 <h2 className={styles.modalTitle}>Secure Payment</h2>
                 <p className={styles.modalSub}>
-                  You are donating {currency.symbol}{amount.toLocaleString()} {currency.code}
+                  You are sending {currency.symbol}{amount.toLocaleString()} {currency.code}
                 </p>
               </div>
 
               <div className={styles.gatewayOptions}>
                 <p className={styles.gatewayNote}>
-                  Click below to securely complete your donation via Flutterwave.
+                  Click below to securely complete your payment via Flutterwave.
                 </p>
                 <div className={styles.paystackWrapper}>
                     <FlutterWaveButton {...componentProps} className={styles.payBtn} />
