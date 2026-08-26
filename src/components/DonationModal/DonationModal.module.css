@@ -125,9 +125,10 @@
   margin-left: 0.5rem;
 }
 
-/* General input styling for name/email */
+/* General input styling for text/email/tel */
 .field input[type="text"],
-.field input[type="email"] {
+.field input[type="email"],
+.field input[type="tel"] {
   background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -140,7 +141,8 @@
   width: 100%;
 }
 .field input[type="text"]:focus,
-.field input[type="email"]:focus { border-color: var(--gold-border); }
+.field input[type="email"]:focus,
+.field input[type="tel"]:focus { border-color: var(--gold-border); }
 .field input::placeholder { color: var(--muted); }
 
 
