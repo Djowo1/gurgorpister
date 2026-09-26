@@ -24,7 +24,7 @@ const CURRENCIES = [
 ];
 
 export default function PaymentModal({ reader, tier, onClose }) {
-  const [step, setStep] = useState('schedule'); // 'schedule' | 'details' | 'payment' | 'success' | 'failure'
+  const [step, setStep] = useState('schedule'); // 'schedule' | 'details' | 'payment' | 'verifying' | 'success' | 'failure'
   
   // Schedule state
   const [selectedDateTime, setSelectedDateTime] = useState(null);
@@ -129,24 +129,52 @@ export default function PaymentModal({ reader, tier, onClose }) {
     }
   };
 
-  const handleFlutterwaveCallback = (response) => {
-    if (response.status === 'successful') {
-      // Payment complete! Update firebase
-      updateBookingStatus(bookingId, 'completed', response.transaction_id || response.tx_ref).then(() => {
-        setStep('success');
-        setTimeout(() => onClose(), 5000); // Auto close after 5 seconds
-      }).catch(err => {
-          console.error("Failed to update status, but payment was successful.", err);
-          setStep('success'); // Still show success to user
-          setTimeout(() => onClose(), 5000); // Auto close after 5 seconds
-      });
-    } else {
-      // Handle failure or cancellation
-      updateBookingStatus(bookingId, response.status || 'failed', response.transaction_id || response.tx_ref).catch(err => {
-          console.error("Failed to update booking status to failed/cancelled.", err);
-      });
+  const handleFlutterwaveCallback = async (response) => {
+    // Step 1: Show a verifying screen while we confirm with the server
+    // (FlutterWaveButton closes its own modal automatically before calling this)
+    setStep('verifying');
+
+    if (!response.transaction_id) {
+      // No transaction ID means it never went through
+      await updateBookingStatus(bookingId, 'failed', {}).catch(console.error);
       setStep('failure');
-      setTimeout(() => onClose(), 5000); // Auto close after 5 seconds
+      setTimeout(() => onClose(), 5000);
+      return;
+    }
+
+    try {
+      // Step 3: Verify the payment server-side using our secret key
+      const verifyRes = await fetch('/.netlify/functions/verify-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transaction_id: response.transaction_id }),
+      });
+      const verifyData = await verifyRes.json();
+
+      if (verifyData.verified === true) {
+        // Payment is genuinely confirmed by Flutterwave's servers
+        await updateBookingStatus(bookingId, 'completed', {
+          transaction_id: verifyData.transaction_id,
+          tx_ref: verifyData.tx_ref,
+          amount: verifyData.amount,
+          currency: verifyData.currency,
+        }).catch(err => console.error('Failed to update booking status:', err));
+        setStep('success');
+        setTimeout(() => onClose(), 5000);
+      } else {
+        // Flutterwave says payment is NOT successful
+        await updateBookingStatus(bookingId, verifyData.status || 'failed', {
+          transaction_id: response.transaction_id,
+        }).catch(console.error);
+        setStep('failure');
+        setTimeout(() => onClose(), 5000);
+      }
+    } catch (err) {
+      console.error('Payment verification network error:', err);
+      // Network error — don't show success, show failure to be safe
+      await updateBookingStatus(bookingId, 'verification_error', {}).catch(console.error);
+      setStep('failure');
+      setTimeout(() => onClose(), 5000);
     }
   };
 
@@ -356,6 +384,20 @@ export default function PaymentModal({ reader, tier, onClose }) {
                 <button className={styles.backBtn} onClick={() => setStep('details')}>← Back to Details</button>
               </div>
             </div>
+          )}
+
+          {step === 'verifying' && (
+            <motion.div
+              className={`${styles.inner} ${styles.success}`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <div className={styles.successIcon} style={{ animation: 'spin 1.2s linear infinite', display: 'inline-block' }}>◌</div>
+              <h2 className={styles.successTitle}>Verifying Payment…</h2>
+              <p className={styles.successText}>
+                Please wait while we confirm your payment with Flutterwave. Do not close this window.
+              </p>
+            </motion.div>
           )}
 
           {step === 'success' && (

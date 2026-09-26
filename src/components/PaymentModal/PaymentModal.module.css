@@ -225,3 +225,8 @@
   .backdrop { align-items: center; padding: 1.5rem; }
   .modal { border-radius: var(--radius-xl); }
 }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
