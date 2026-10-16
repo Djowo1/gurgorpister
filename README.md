@@ -1,16 +1,30 @@
-# React + Vite
+# gurgorpister
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is one of my featured projects, and it’s the one I want people to see first.
 
-Currently, two official plugins are available:
+I built this as a modern frontend project focused on clean design, smooth interaction, and a strong visual identity. It’s a good example of the kind of UI work I enjoy building — responsive layouts, polished components, and experiences that feel intentional.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What this project is about
+This project is a front-end experience built for a modern, design-driven web presence. It focuses on strong visuals, simple navigation, and a nice user flow so the site feels clean and memorable.
 
-## React Compiler
+## Tech stack
+- React
+- Vite
+- JavaScript
+- CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Why I included it as my main showcase
+I want recruiters, collaborators, and clients to see this first because it reflects the style and direction of my work: clean interfaces, modern structure, and user-focused design.
 
-## Expanding the ESLint configuration
+## Run locally
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Links
+- Portfolio: https://webdevgam.netlify.app
+- GitHub: https://github.com/Djowo1
+- Email: olowogokeayodejigamaliel@gmail.com
+
+If you want a landing page, a branded frontend, or a UI-focused web project built, I’m open to collaborations and paid work.
